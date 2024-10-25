@@ -1,7 +1,9 @@
-LAB 06 - Sistemas Operacionais
+#LAB 06 - Sistemas Operacionais
 Respostas:
-1.
-celula *primeira = (celula *)malloc(sizeof(celula));
+
+##1.
+
+    celula *primeira = (celula *)malloc(sizeof(celula));
     celula *segunda = (celula *)malloc(sizeof(celula));
     celula *terceira = (celula *)malloc(sizeof(celula));
     primeira->conteudo = 1;
@@ -12,8 +14,9 @@ celula *primeira = (celula *)malloc(sizeof(celula));
     terceira->prox = NULL; 
 
 
-2.
-void imprime_lista(celula *le) {
+##2.
+
+  void imprime_lista(celula *le) {
     celula *p = le;
     printf("Elementos da lista: ");
     while (p != NULL) {
@@ -23,12 +26,13 @@ void imprime_lista(celula *le) {
     printf("\n");
 }
 
-3
+##3
 void calcula_tamanho_celula() {
     printf("Tamanho de uma célula: %zu bytes\n", sizeof(celula));
 }
 
-4
+##4
+
 void remove_elemento(celula **le, int valor) {
     celula *atual = *le, *anterior = NULL;
 
@@ -48,7 +52,8 @@ void remove_elemento(celula **le, int valor) {
     free(atual);
 }
 
-5
+##5
+
 void libera_lista(celula *le) {
     celula *atual = le;
     celula *proximo;
@@ -61,7 +66,8 @@ void libera_lista(celula *le) {
 }
 
 
-6
+##6
+
 int64_t calcula_memoria_total() {
     int mib[2];
     int64_t memoria_total;
