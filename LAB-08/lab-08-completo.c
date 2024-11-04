@@ -1,6 +1,6 @@
 //Aluno: Mihael Rommel B. Xavier
 // RA: 10239617
-// Link github: 
+// Link github: https://github.com/MihaelRBX/CC-4S-Sistemas-Operacionais/blob/a46a99567eb66c98881b6b89a4912031639a4088/LAB-08/lab-08-completo.c
 #include <stdio.h>
 #include <stdbool.h>
 
