@@ -1,4 +1,6 @@
-#Execução:
+# Execução:
+
+No código que utilizamos, uma memória simulada foi definida para calcular uma estimativa de quantos elementos poderiam ser armazenados em uma lista encadeada. Isso foi necessario pois tive que testar no replit.
 
 
 Elementos da lista: 1 2 3 
