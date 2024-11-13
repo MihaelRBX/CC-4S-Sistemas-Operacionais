@@ -1,16 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/sysctl.h>  /*utilizando macOS tive que usar esse cabecalho e a função sysctl() para acessar informações
-do sistema, como o tamanho total de memória RAM (HW_MEMSIZE).*/
 
 struct reg {
     int conteudo;
     struct reg *prox;
 };
-
 typedef struct reg celula;
 
-
+// Função para imprimir todos os valores da lista
 void imprime_lista(celula *le) {
     celula *p = le;
     printf("Elementos da lista: ");
@@ -21,56 +18,39 @@ void imprime_lista(celula *le) {
     printf("\n");
 }
 
+// Função para remover um elemento da lista baseado em seu valor
 void remove_elemento(celula **le, int valor) {
     celula *atual = *le, *anterior = NULL;
-
     while (atual != NULL && atual->conteudo != valor) {
         anterior = atual;
         atual = atual->prox;
     }
-
-    if (atual == NULL) return;
-
-    if (anterior == NULL) {
+    if (atual == NULL) return; // Elemento não encontrado
+    if (anterior == NULL) { // Remover o primeiro elemento
         *le = atual->prox;
     } else {
         anterior->prox = atual->prox;
     }
-
-    free(atual);
+    free(atual); // Libera a memória do elemento removido
 }
 
-
+// Função para calcular e imprimir o tamanho de uma célula em bytes
 void calcula_tamanho_celula() {
     printf("Tamanho de uma célula: %zu bytes\n", sizeof(celula));
 }
 
-//obtendo a quantidade de memória total no macOS
-int64_t calcula_memoria_total() {
-    int mib[2];
-    int64_t memoria_total;
-    size_t len = sizeof(memoria_total);
-
-    mib[0] = CTL_HW;
-    mib[1] = HW_MEMSIZE;
-
-    sysctl(mib, 2, &memoria_total, &len, NULL, 0);
-    printf("Memória total do sistema: %lld bytes\n", memoria_total);
-}
-
+// Função para calcular o número máximo de elementos na lista
 void calcula_max_elementos() {
-    int64_t memoria_total = calcula_memoria_total();
     size_t tamanho_celula = sizeof(celula);
-    
-    int64_t max_elementos = memoria_total / tamanho_celula;
-    printf("Número máximo de elementos possíveis na lista: %lld\n", max_elementos);
+    int64_t memoria_simulada = 1024 * 1024 * 1024; // Simulando 1 GB de memória
+    int64_t max_elementos = memoria_simulada / tamanho_celula;
+    printf("Número máximo de elementos possíveis na lista (simulação): %lld\n", max_elementos);
 }
 
-
+// Função para liberar toda a memória alocada para a lista
 void libera_lista(celula *le) {
     celula *atual = le;
     celula *proximo;
-
     while (atual != NULL) {
         proximo = atual->prox;
         free(atual);
@@ -78,35 +58,35 @@ void libera_lista(celula *le) {
     }
 }
 
-
 int main() {
-    
+    // Criação de três instâncias da lista encadeada
     celula *primeira = (celula *)malloc(sizeof(celula));
     celula *segunda = (celula *)malloc(sizeof(celula));
     celula *terceira = (celula *)malloc(sizeof(celula));
 
+    // Inicialização dos valores das células
     primeira->conteudo = 1;
     primeira->prox = segunda;
-    
     segunda->conteudo = 2;
     segunda->prox = terceira;
-    
     terceira->conteudo = 3;
-    terceira->prox = NULL; 
+    terceira->prox = NULL;
 
+    // Impressão dos valores da lista
     imprime_lista(primeira);
 
+    // Cálculo do tamanho de uma célula
     calcula_tamanho_celula();
 
-    calcula_memoria_total();
-
+    // Cálculo do número máximo de elementos na lista (com base em uma memória simulada)
     calcula_max_elementos();
-    
+
+    // Remoção de um elemento da lista e reimpressão
     remove_elemento(&primeira, 2);
     printf("Após remover o elemento com valor 2:\n");
     imprime_lista(primeira);
 
+    // Liberação de toda a lista
     libera_lista(primeira);
-
     return 0;
 }
